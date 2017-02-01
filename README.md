@@ -65,18 +65,18 @@ vagrant up
 vagrant ssh
 ```
 
-CDBに接続する。
+ルートに接続する。
 
 ```
 su - oracle
 sqlplus system/oracle
+SHOW CON_NAME
 ```
 
 PDBに接続し、サンプル表を確認する。
 
 ```
-SHOW CON_NAME
-ALTER SESSION SET CONTAINER = pdb1;
+sqlplus system/oracle@localhost/pdb1
 SHOW CON_NAME
 SELECT * FROM hr.employees WHERE rownum <= 10;
 ```
