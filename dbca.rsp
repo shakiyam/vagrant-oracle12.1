@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = "orcl12c.us.oracle.com"
+GDBNAME = "orcl12c"
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASECONFTYPE
