@@ -1,7 +1,7 @@
 vagrant-oracle12.1
 ==================
 
-Vagrant + Oralce Linux 7.3 + Oracle Database 12c Release 1 (12.1.0.2) Enteprise Edition シングル環境の簡易セットアップ。
+Vagrant + Oracle Linux 7.3 + Oracle Database 12c Release 1 (12.1.0.2) Enterprise Edition シングル環境の簡易セットアップ。
 
 ## ダウンロード
 
@@ -16,7 +16,7 @@ http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.ht
 
 プロキシを利用する必要がある場合、まずvagrant-proxyconfをインストールし、vagrant-proxyconf用の環境変数を設定しておく。
 
-ホストがMacOS X or Linuxの場合:
+ホストがmacOS or Linuxの場合:
 ```
 export http_proxy=http://proxy.example.com:80
 export https_proxy=http://proxy.example.com:80
