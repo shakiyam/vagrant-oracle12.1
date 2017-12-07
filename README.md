@@ -1,10 +1,10 @@
 vagrant-oracle12.1
 ==================
 
-Vagrant + Oracle Linux 7.3 + Oracle Database 12c Release 1 (12.1.0.2) Enterprise Editionシングル環境の簡易セットアップ。
+Vagrant + Oracle Linux 7.4 + Oracle Database 12c Release 1 (12.1.0.2) Enterprise Editionシングル環境の簡易セットアップ。
 
 ダウンロード
------------
+------------
 
 Oracle Database 12c Release 1 (12.1.0.2)のソフトウェアを[Oracle Technology Network](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)からダウンロードし、Vagrantfileと同じディレクトリに展開。展開すると"database"というサブディレクトリになるはず。
 
@@ -12,7 +12,7 @@ Oracle Database 12c Release 1 (12.1.0.2)のソフトウェアを[Oracle Technolo
 * linuxamd64_12102_database_2of2.zip
 
 Vagrant設定
----------
+-----------
 
 プロキシを利用する必要がある場合、まずvagrant-proxyconfをインストールし、vagrant-proxyconf用の環境変数を設定しておく。
 
@@ -47,7 +47,7 @@ SET VAGRANT_NO_PROXY=localhost,127.0.0.1
 
 `vagrant up`を実行すると、内部的に以下が動く。
 
-* Oracle Linux 7.3のダウンロードと起動
+* Oracle Linux 7.4のダウンロードと起動
 * Oracle Preinstallation RPMのインストール
 * ディレクトリの作成
 * 環境変数の設定
@@ -69,10 +69,10 @@ vagrant up
 vagrant ssh
 ```
 
-ルートに接続する。(OSユーザーoracleのパスワードはoracle)
+ルートに接続する。
 
 ```console
-su - oracle
+sudo su - oracle
 sqlplus system/oracle
 SHOW CON_NAME
 ```
