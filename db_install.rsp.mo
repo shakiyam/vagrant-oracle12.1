@@ -88,12 +88,12 @@ SELECTED_LANGUAGES=en,ja
 #-------------------------------------------------------------------------------
 # Specify the complete path of the Oracle Home. 
 #-------------------------------------------------------------------------------
-ORACLE_HOME=/u01/app/oracle/product/12.1.0.2/dbhome_1
+ORACLE_HOME={{ORACLE_HOME}}
 
 #-------------------------------------------------------------------------------
 # Specify the complete path of the Oracle Base. 
 #-------------------------------------------------------------------------------
-ORACLE_BASE=/u01/app/oracle
+ORACLE_BASE={{ORACLE_BASE}}
 
 #-------------------------------------------------------------------------------
 # Specify the installation edition of the component.                     

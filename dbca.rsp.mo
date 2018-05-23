@@ -75,7 +75,7 @@ OPERATION_TYPE = "createDatabase"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = "orcl12c"
+GDBNAME = "{{ORACLE_SID}}"
 
 #-----------------------------------------------------------------------------
 # Name          : DATABASECONFTYPE
@@ -202,7 +202,7 @@ GDBNAME = "orcl12c"
 # Default value : <db_name> specified in GDBNAME
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = "orcl12c"
+SID = "{{ORACLE_SID}}"
 
 #-----------------------------------------------------------------------------
 # Name          : CREATEASCONTAINERDATABASE
@@ -232,7 +232,7 @@ NUMBEROFPDBS = 1
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-PDBNAME = pdb1
+PDBNAME = {{ORACLE_PDB}}
 
 #-----------------------------------------------------------------------------
 # Name          : PDBADMINPASSWORD
@@ -242,7 +242,7 @@ PDBNAME = pdb1
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-PDBADMINPASSWORD = "oracle"
+PDBADMINPASSWORD = "{{ORACLE_PASSWORD}}"
 
 #-----------------------------------------------------------------------------
 # Name          : NODELIST
@@ -283,7 +283,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSPASSWORD = "oracle"
+SYSPASSWORD = "{{ORACLE_PASSWORD}}"
 
 #-----------------------------------------------------------------------------
 # Name          : SYSTEMPASSWORD
@@ -293,7 +293,7 @@ SYSPASSWORD = "oracle"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSTEMPASSWORD = "oracle"
+SYSTEMPASSWORD = "{{ORACLE_PASSWORD}}"
 
 #-----------------------------------------------------------------------------
 # Name          : SERVICEUSERPASSWORD
@@ -522,7 +522,7 @@ SYSTEMPASSWORD = "oracle"
 # Default value : "US7ASCII"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-CHARACTERSET="AL32UTF8"
+CHARACTERSET="{ORACLE_CHARACTERSET}"
 
 #-----------------------------------------------------------------------------
 # Name          : NATIONALCHARACTERSET

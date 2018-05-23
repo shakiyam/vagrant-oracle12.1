@@ -11,6 +11,20 @@ Oracle Database 12c Release 1 (12.1.0.2)のソフトウェアを[Oracle Technolo
 * linuxamd64_12102_database_1of2.zip
 * linuxamd64_12102_database_2of2.zip
 
+環境変数の設定
+--------------
+
+`dotenv.sample`というファイルを`.env`という名前のファイルにコピーし、必要に応じて内容を書き換える。
+
+```shell
+ORACLE_BASE=/u01/app/oracle
+ORACLE_CHARACTERSET=AL32UTF8
+ORACLE_HOME=/u01/app/oracle/product/12.1.0.2/dbhome_1
+ORACLE_PASSWORD=oracle
+ORACLE_PDB=pdb1
+ORACLE_SID=orcl
+```
+
 Vagrant設定
 -----------
 
