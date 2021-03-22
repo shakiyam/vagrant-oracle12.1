@@ -23,11 +23,10 @@ chmod +x /usr/local/bin/mo
 # shellcheck disable=SC1091
 os_version=$(. /etc/os-release; echo "$VERSION")
 case ${os_version%%.*} in
-  6)
-    yum -y localinstall https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+  7)
+    yum -y --enablerepo=ol7_developer_EPEL install rlwrap
     ;;
 esac
-yum -y install rlwrap
 
 # Install Oracle Preinstallation RPM
 yum -y install oracle-rdbms-server-12cR1-preinstall
