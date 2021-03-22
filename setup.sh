@@ -32,9 +32,9 @@ esac
 yum -y install oracle-rdbms-server-12cR1-preinstall
 
 # Create directories
-mkdir -p /u01/app/
-chown -R oracle:oinstall /u01/app/
-chmod -R 775 /u01/app/
+mkdir -p "$ORACLE_BASE"/..
+chown -R oracle:oinstall "$ORACLE_BASE"/..
+chmod -R 775 "$ORACLE_BASE"/..
 
 # Set environment variables
 cat <<EOT >> /home/oracle/.bash_profile
@@ -56,12 +56,12 @@ echo oracle:"$ORACLE_PASSWORD" | chpasswd
 /usr/local/bin/mo "$script_dir"/db_install.rsp.mo >"$script_dir"/db_install.rsp
 su - oracle -c "$script_dir/database/runInstaller -silent -showProgress \
   -ignorePrereq  -waitforcompletion -responseFile $script_dir/db_install.rsp"
-/u01/app/oraInventory/orainstRoot.sh
-/u01/app/oracle/product/12.1.0.2/dbhome_1/root.sh
+"$ORACLE_BASE"/../oraInventory/orainstRoot.sh
+"$ORACLE_HOME"/root.sh
 
 # Create listener using netca
 su - oracle -c "netca -silent -responseFile \
-  /u01/app/oracle/product/12.1.0.2/dbhome_1/assistants/netca/netca.rsp"
+  $ORACLE_HOME/assistants/netca/netca.rsp"
 
 # Create database
 /usr/local/bin/mo "$script_dir"/dbca.rsp.mo >"$script_dir"/dbca.rsp
