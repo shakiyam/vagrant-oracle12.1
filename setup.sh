@@ -53,7 +53,7 @@ curl -sSL https://git.io/get-mo -o /usr/local/bin/mo
 chmod +x /usr/local/bin/mo
 
 # Install Oracle Database
-/usr/local/bin/mo "$SCRIPT_DIR"/db_install.rsp.mo >"$SCRIPT_DIR"/db_install.rsp
+/usr/local/bin/mo "$SCRIPT_DIR"/db_install.rsp.mustache >"$SCRIPT_DIR"/db_install.rsp
 su - oracle -c "$SCRIPT_DIR/database/runInstaller -silent -showProgress \
   -ignorePrereq -waitforcompletion -responseFile $SCRIPT_DIR/db_install.rsp"
 "$ORACLE_BASE"/../oraInventory/orainstRoot.sh
@@ -63,5 +63,5 @@ su - oracle -c "$SCRIPT_DIR/database/runInstaller -silent -showProgress \
 su - oracle -c "netca -silent -responseFile $ORACLE_HOME/assistants/netca/netca.rsp"
 
 # Create a database
-/usr/local/bin/mo "$SCRIPT_DIR"/dbca.rsp.mo >"$SCRIPT_DIR"/dbca.rsp
+/usr/local/bin/mo "$SCRIPT_DIR"/dbca.rsp.mustache >"$SCRIPT_DIR"/dbca.rsp
 su - oracle -c "dbca -silent -createDatabase -responseFile $SCRIPT_DIR/dbca.rsp"
