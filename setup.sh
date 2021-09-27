@@ -1,7 +1,8 @@
 #!/bin/bash
 set -eu -o pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"; readonly SCRIPT_DIR
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly SCRIPT_DIR
 
 # load environment variables from .env
 set -a
@@ -14,10 +15,6 @@ else
   . "$SCRIPT_DIR"/dotenv.sample
 fi
 set +a
-
-# Install Mo
-curl -sSL https://git.io/get-mo -o /usr/local/bin/mo
-chmod +x /usr/local/bin/mo
 
 # Install Oracle Preinstallation RPM
 yum -y install oracle-rdbms-server-12cR1-preinstall
@@ -37,7 +34,8 @@ EOT
 
 # Install rlwrap and set alias
 # shellcheck disable=SC1091
-OS_VERSION=$(. /etc/os-release; echo "$VERSION"); readonly OS_VERSION
+OS_VERSION=$(. /etc/os-release && echo "$VERSION")
+readonly OS_VERSION
 case ${OS_VERSION%%.*} in
   7)
     yum -y --enablerepo=ol7_developer_EPEL install rlwrap
@@ -50,23 +48,20 @@ esac
 # Set oracle password
 echo oracle:"$ORACLE_PASSWORD" | chpasswd
 
-# Install database
+# Install Mo (https://github.com/tests-always-included/mo)
+curl -sSL https://git.io/get-mo -o /usr/local/bin/mo
+chmod +x /usr/local/bin/mo
+
+# Install Oracle Database
 /usr/local/bin/mo "$SCRIPT_DIR"/db_install.rsp.mo >"$SCRIPT_DIR"/db_install.rsp
 su - oracle -c "$SCRIPT_DIR/database/runInstaller -silent -showProgress \
   -ignorePrereq -waitforcompletion -responseFile $SCRIPT_DIR/db_install.rsp"
 "$ORACLE_BASE"/../oraInventory/orainstRoot.sh
 "$ORACLE_HOME"/root.sh
 
-# Create listener using netca
-su - oracle -c "netca -silent -responseFile \
-  $ORACLE_HOME/assistants/netca/netca.rsp"
+# Create a listener using netca
+su - oracle -c "netca -silent -responseFile $ORACLE_HOME/assistants/netca/netca.rsp"
 
-# Create database
+# Create a database
 /usr/local/bin/mo "$SCRIPT_DIR"/dbca.rsp.mo >"$SCRIPT_DIR"/dbca.rsp
 su - oracle -c "dbca -silent -createDatabase -responseFile $SCRIPT_DIR/dbca.rsp"
-
-# Shutdown database
-#echo "shutdown immediate" | su - oracle -c 'sqlplus "/ as sysdba"'
-
-# Stop listener
-#su - oracle -c "lsnrctl stop"
