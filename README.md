@@ -6,7 +6,7 @@ Vagrant + Oracle Linux 7 + Oracle Database 12c Release 1 (12.1.0.2) Enterprise E
 Download
 --------
 
-Download Oracle Database 12c Release 1 (12.1.0.2) software from My Oracle Support and extract it to the same directory as the Vagrantfile. It should be a subdirectory named `database`.
+Download Oracle Database 12c Release 1 (12.1.0.2) software from [My Oracle Support](https://support.oracle.com/). Then place downloaded files in the same directory as the Vagrantfile.
 
 * p21419221_121020_Linux-x86-64_2of10.zip
 * p21419221_121020_Linux-x86-64_1of10.zip
@@ -36,6 +36,7 @@ When you run `vagrant up`, the following will work internally.
 * Create directories
 * Set environment variables
 * Set password for oracle user
+* Unzip downloaded file
 * Install Oracle Database
 * Create a listener
 * Create a database

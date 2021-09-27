@@ -16,6 +16,15 @@ else
 fi
 set +a
 
+declare -r -a FILES=("$SCRIPT_DIR/p21419221_121020_Linux-x86-64_1of10.zip" "$SCRIPT_DIR/p21419221_121020_Linux-x86-64_2of10.zip")
+
+for file in "${FILES[@]}"; do
+  if [[ ! -f "$file" ]]; then
+    echo "File not found"
+    exit 1
+  fi
+done
+
 # Install Oracle Preinstallation RPM
 yum -y install oracle-rdbms-server-12cR1-preinstall
 
@@ -48,14 +57,20 @@ esac
 # Set oracle password
 echo oracle:"$ORACLE_PASSWORD" | chpasswd
 
+# Unzip downloaded files
+TEMP_DIR=$(mktemp -d)
+readonly TEMP_DIR
+chmod 755 "$TEMP_DIR"
+printf "%s\n" "${FILES[@]}" | xargs -I{} unzip {} -d "$TEMP_DIR"
+
 # Install Mo (https://github.com/tests-always-included/mo)
 curl -sSL https://git.io/get-mo -o /usr/local/bin/mo
 chmod +x /usr/local/bin/mo
 
 # Install Oracle Database
-/usr/local/bin/mo "$SCRIPT_DIR"/db_install.rsp.mustache >"$SCRIPT_DIR"/db_install.rsp
-su - oracle -c "$SCRIPT_DIR/database/runInstaller -silent -showProgress \
-  -ignorePrereq -waitforcompletion -responseFile $SCRIPT_DIR/db_install.rsp"
+/usr/local/bin/mo "$SCRIPT_DIR"/db_install.rsp.mustache >"$TEMP_DIR"/db_install.rsp
+su - oracle -c "$TEMP_DIR/database/runInstaller -silent -showProgress \
+  -ignorePrereq -waitforcompletion -responseFile $TEMP_DIR/db_install.rsp"
 "$ORACLE_BASE"/../oraInventory/orainstRoot.sh
 "$ORACLE_HOME"/root.sh
 
@@ -63,5 +78,7 @@ su - oracle -c "$SCRIPT_DIR/database/runInstaller -silent -showProgress \
 su - oracle -c "netca -silent -responseFile $ORACLE_HOME/assistants/netca/netca.rsp"
 
 # Create a database
-/usr/local/bin/mo "$SCRIPT_DIR"/dbca.rsp.mustache >"$SCRIPT_DIR"/dbca.rsp
-su - oracle -c "dbca -silent -createDatabase -responseFile $SCRIPT_DIR/dbca.rsp"
+/usr/local/bin/mo "$SCRIPT_DIR"/dbca.rsp.mustache >"$TEMP_DIR"/dbca.rsp
+su - oracle -c "dbca -silent -createDatabase -responseFile $TEMP_DIR/dbca.rsp"
+
+rm -rf "$TEMP_DIR"
